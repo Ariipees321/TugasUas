@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - N-Shoes</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+      body {
+        background-color: #f0f2f5;
+      }
+      .sidebar {
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        background-color: #007bff; /* Updated to bg-primary color */
+        padding: 20px;
+        color: #ffffff;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      }
+      .sidebar a {
+        color: #ffffff;
+        text-decoration: none;
+        display: block;
+        padding: 10px;
+        border-radius: 4px;
+      }
+      .sidebar a:hover {
+        background-color: #0056b3; /* Darker shade for hover effect */
+      }
+      .sidebar .nav-item {
+        margin-bottom: 10px;
+      }
+      .content {
+        margin-left: 250px;
+        padding: 20px;
+      }
+      .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .card-img-top {
+        height: 200px;
+        object-fit: cover;
+      }
+      .card-body {
+        background-color: #ffffff;
+      }
+      .btn-primary {
+        background-color: #007bff; /* Updated to bg-primary color */
+        border-color: #007bff;
+        border-radius: 25px;
+        transition: background-color 0.3s ease;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3; /* Darker shade for hover effect */
+        border-color: #004085;
+      }
+      .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+        border-radius: 25px;
+        transition: background-color 0.3s ease;
+      }
+      .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+      }
+      .modal-content {
+        border-radius: 10px;
+      }
+      .modal-header {
+        border-bottom: none;
+      }
+      .modal-footer {
+        border-top: none;
+      }
+      .navbar {
+        background-color: #007bff; /* Updated to bg-primary color */
+      }
+      .navbar-brand,
+      .navbar-search input {
+        color: #ffffff;
+      }
+      .navbar-search input {
+        border-radius: 25px;
+      }
+      .navbar-search .btn {
+        border-radius: 25px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.html">N-Shoes</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <form class="form-inline ml-auto navbar-search">
+          <input class="form-control mr-sm-2" type="search" placeholder="Cari produk" aria-label="Search" />
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Cari</button>
+        </form>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2 class="text-center"><i class="fas fa-store"></i> N-Shoes</h2>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a class="nav-link" href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        </li>
+
+        <li class="nav-item mb-2">
+          <a class="nav-link" href="transaksi.html"><i class="fas fa-credit-card"></i> Transaksi</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> Tentang</a>
+        </li>
+        <li class="nav-item logout">
+          <a class="nav-link" href="login.html"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <h2 class="mb-4">Produk/Servis Kami</h2>
+      <div class="row">
+        <!-- Product 1 -->
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="img/W+AIR+MAX+DN.png" class="card-img-top" alt="Nike Shoes 1" />
+            <div class="card-body">
+              <h5 class="card-title">Nike Air Max-Dn</h5>
+              <p class="card-text">Rp. 2.443.500</p>
+              <div class="btn-group">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#product1Modal">Lihat Detail</button>
+                <a href="transaksi.html?product=Nike%20Air%20Max-Dn" class="btn btn-success">Pesan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="img/NIKE+DUNK+LOW+NN.png" class="card-img-top" alt="Nike Shoes 2" />
+            <div class="card-body">
+              <h5 class="card-title">Nike Dunk Low</h5>
+              <p class="card-text">Rp. 1.945.800</p>
+              <div class="btn-group">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#product2Modal">Lihat Detail</button>
+                <a href="transaksi.html?product=Nike%20Dunk%20Low" class="btn btn-success">Pesan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="img/custom-nike-dunk-high-by-you-shoes.png" class="card-img-top" alt="Nike Shoes 3" />
+            <div class="card-body">
+              <h5 class="card-title">Nike Dunk High</h5>
+              <p class="card-text">Rp. 2.117.700</p>
+              <div class="btn-group">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#product3Modal">Lihat Detail</button>
+                <a href="transaksi.html" class="btn btn-success">Pesan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="img/AIR+FORCE+1+LV8+3+(GS).jpg" class="card-img-top" alt="Nike Shoes 4" />
+            <div class="card-body">
+              <h5 class="card-title">Nike Air Force 1 LV8</h5>
+              <p class="card-text">Rp. 2.280.600</p>
+              <div class="btn-group">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#product4Modal">Lihat Detail</button>
+                <a href="transaksi.html" class="btn btn-success">Pesan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="img/W+AIR+ZOOM+PEGASUS+41.png" class="card-img-top" alt="Nike Shoes 5" />
+            <div class="card-body">
+              <h5 class="card-title">Nike Air Zoom Pegasus</h5>
+              <p class="card-text">Rp. 1.791.900</p>
+              <div class="btn-group">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#product5Modal">Lihat Detail</button>
+                <a href="transaksi.html" class="btn btn-success">Pesan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="img/AIR+JORDAN+1+LOW.jpg" class="card-img-top" alt="Nike Shoes 6" />
+            <div class="card-body">
+              <h5 class="card-title">Air Jordan Low</h5>
+              <p class="card-text">Rp. 2.606.400</p>
+              <div class="btn-group">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#product6Modal">Lihat Detail</button>
+                <a href="transaksi.html" class="btn btn-success">Pesan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modals -->
+    <!-- Product 1 Modal -->
+    <div class="modal fade" id="product1Modal" tabindex="-1" aria-labelledby="product1ModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="product1ModalLabel">Nike Air Max-Dn</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img src="img/W+AIR+MAX+DN.png" class="img-fluid mb-3" alt="Nike Air Max-Dn" />
+            <p>Nike Air Max-Dn adalah sepatu yang nyaman dan stylish untuk berbagai aktivitas Anda. Dengan desain yang modern dan material berkualitas tinggi, sepatu ini menawarkan kenyamanan dan daya tahan yang luar biasa.</p>
+            <p><strong>Harga:</strong> Rp. 2.443.500</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <a href="transaksi.html" class="btn btn-success">Pesan Sekarang</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 2 Modal -->
+    <div class="modal fade" id="product2Modal" tabindex="-1" aria-labelledby="product2ModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="product2ModalLabel">Nike Dunk Low</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img src="img/NIKE+DUNK+LOW+NN.png" class="img-fluid mb-3" alt="Nike Dunk Low" />
+            <p>Nike Dunk Low adalah sepatu yang sempurna untuk gaya kasual dan santai Anda. Dengan desain rendah dan kombinasi warna yang menarik, sepatu ini menjadi favorit di kalangan anak muda.</p>
+            <p><strong>Harga:</strong> Rp. 1.945.800</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <a href="transaksi.html" class="btn btn-success">Pesan Sekarang</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 3 Modal -->
+    <div class="modal fade" id="product3Modal" tabindex="-1" aria-labelledby="product3ModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="product3ModalLabel">Nike Dunk High</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img src="img/custom-nike-dunk-high-by-you-shoes.png" class="img-fluid mb-3" alt="Nike Dunk High" />
+            <p>Nike Dunk High adalah sepatu yang menawarkan dukungan tambahan untuk pergelangan kaki Anda. Cocok untuk berbagai aktivitas olahraga dan gaya hidup, sepatu ini memiliki desain yang ikonik dan tahan lama.</p>
+            <p><strong>Harga:</strong> Rp. 2.117.700</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <a href="transaksi.html" class="btn btn-success">Pesan Sekarang</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 4 Modal -->
+    <div class="modal fade" id="product4Modal" tabindex="-1" aria-labelledby="product4ModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="product4ModalLabel">Nike Air Force 1 LV8</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img src="img/AIR+FORCE+1+LV8+3+(GS).jpg" class="img-fluid mb-3" alt="Nike Air Force 1 LV8" />
+            <p>Nike Air Force 1 LV8 adalah sepatu yang memadukan gaya klasik dengan sentuhan modern. Dengan bahan premium dan teknologi canggih, sepatu ini memberikan kenyamanan maksimal untuk penggunaan sehari-hari.</p>
+            <p><strong>Harga:</strong> Rp. 2.280.600</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <a href="transaksi.html" class="btn btn-success">Pesan Sekarang</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 5 Modal -->
+    <div class="modal fade" id="product5Modal" tabindex="-1" aria-labelledby="product5ModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="product5ModalLabel">Nike Air Zoom Pegasus</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img src="img/W+AIR+ZOOM+PEGASUS+41.png" class="img-fluid mb-3" alt="Nike Air Zoom Pegasus" />
+            <p>Nike Air Zoom Pegasus adalah sepatu lari yang dirancang untuk memberikan kenyamanan dan performa tinggi. Dengan teknologi Zoom Air, sepatu ini memberikan responsif dan kelincahan yang luar biasa.</p>
+            <p><strong>Harga:</strong> Rp. 1.791.900</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <a href="transaksi.html" class="btn btn-success">Pesan Sekarang</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 6 Modal -->
+    <div class="modal fade" id="product6Modal" tabindex="-1" aria-labelledby="product6ModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="product6ModalLabel">Air Jordan Low</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img src="img/AIR+JORDAN+1+LOW.jpg" class="img-fluid mb-3" alt="Air Jordan Low" />
+            <p>Air Jordan Low adalah sepatu yang menggabungkan warisan Jordan dengan gaya kontemporer. Dengan bahan berkualitas tinggi dan desain yang inovatif, sepatu ini memberikan performa dan gaya yang luar biasa.</p>
+            <p><strong>Harga:</strong> Rp. 2.606.400</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <a href="transaksi.html" class="btn btn-success">Pesan Sekarang</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Penjualan - N-Shoes</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+      body {
+        background-color: #f0f2f5;
+      }
+      .sidebar {
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        background-color: #007bff;
+        padding: 20px;
+        color: #ffffff;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      }
+      .sidebar a {
+        color: #ffffff;
+        text-decoration: none;
+        display: block;
+        padding: 10px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+      .sidebar a:hover {
+        background-color: #0056b3;
+      }
+      .sidebar .nav-item {
+        margin-bottom: 10px;
+      }
+      .content {
+        margin-left: 250px;
+        padding: 20px;
+      }
+      .btn-info,
+      .btn-warning,
+      .btn-danger {
+        border-radius: 4px;
+      }
+      .btn-info {
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+      .btn-info:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+      }
+      .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+      }
+      .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #d39e00;
+      }
+      .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+      }
+      .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+      }
+      .form-control {
+        border-radius: 25px;
+      }
+      .sidebar .nav-item.logout {
+        margin-top: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h2 class="text-center text-light"><i class="fas fa-store"></i> N-Shoes</h2>
+      <ul class="nav flex-column">
+        <li class="nav-item logout">
+          <a class="nav-link" href="login.html"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="content">
+      <h2 class="mb-4">Daftar Transaksi</h2>
+      <div id="tempatPesan"></div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Produk</th>
+            <th>Jumlah</th>
+            <th>Total Harga</th>
+            <th>Oleh</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="isiTabelPenjualan">
+          <!-- Data transaksi akan ditampilkan di sini -->
+        </tbody>
+      </table>
+      <div class="form-group mt-3">
+        <label for="totalBayar">Total Bayar</label>
+        <input type="text" class="form-control" id="totalBayar" readonly />
+      </div>
+    </div>
+
+    <!-- Modal Update Transaksi -->
+    <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="labelModalUpdate" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="labelModalUpdate">Update Transaksi</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="formUpdate">
+              <input type="hidden" id="transaksiIndex" name="transaksiIndex" />
+              <div class="form-group">
+                <label for="produkUpdate">Produk</label>
+                <select class="form-control" id="produkUpdate" name="produk">
+                  <option value="nike_air_max_dn" data-harga="2443500">Nike Air Max-Dn - Rp. 2.443.500</option>
+                  <option value="nike_dunk_low" data-harga="1945800">Nike Dunk Low - Rp. 1.945.800</option>
+                  <option value="nike_dunk_high" data-harga="2117700">Nike Dunk High - Rp. 2.117.700</option>
+                  <option value="nike_air_force_1_lv8" data-harga="2280600">Nike Air Force 1 LV8 - Rp. 2.280.600</option>
+                  <option value="nike_air_zoom_pegasus" data-harga="1791900">Nike Air Zoom Pegasus - Rp. 1.791.900</option>
+                  <option value="air_jordan_low" data-harga=" 2606400">Air Jordan Low - Rp. 2.606.400</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="jumlahUpdate">Jumlah</label>
+                <input type="number" class="form-control" id="jumlahUpdate" name="jumlah" required />
+              </div>
+              <div class="form-group">
+                <label for="totalHargaUpdate">Total Harga</label>
+                <input type="text" class="form-control" id="totalHargaUpdate" name="total_harga" readonly />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <button type="button" class="btn btn-primary" onclick="simpanUpdate()">Simpan Perubahan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const transaksi = JSON.parse(localStorage.getItem('transaksi')) || [];
+        const isiTabelPenjualan = document.getElementById('isiTabelPenjualan');
+        const totalBayar = document.getElementById('totalBayar');
+
+        let total = 0;
+        transaksi.forEach((item, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${item.produk}</td>
+        <td>${item.jumlah}</td>
+        <td>${item.total_harga}</td>
+        <td>Ari Permana</td>
+        <td>
+          <button class="btn btn-warning btn-sm" onclick="tampilkanModalUpdate(${index})">Update</button>
+          <button class="btn btn-danger btn-sm" onclick="hapusTransaksi(${index})">Hapus</button>
+          <button class="btn btn-info btn-sm" onclick="cetakNota(${index})">Cetak</button>
+        </td>
+      `;
+          isiTabelPenjualan.appendChild(row);
+          total += parseFloat(item.total_harga.replace('Rp', '').replace(/\./g, ''));
+        });
+
+        totalBayar.value = `Rp ${total.toLocaleString('id-ID')}`;
+      });
+
+      function tampilkanModalUpdate(index) {
+        const transaksi = JSON.parse(localStorage.getItem('transaksi')) || [];
+        const item = transaksi[index];
+        document.getElementById('transaksiIndex').value = index;
+        const produkSelect = document.getElementById('produkUpdate');
+        const jumlahInput = document.getElementById('jumlahUpdate');
+        const totalHargaInput = document.getElementById('totalHargaUpdate');
+
+        for (let option of produkSelect.options) {
+          if (option.value === item.produk) {
+            option.selected = true;
+            break;
+          }
+        }
+
+        updateTotalHarga();
+        jumlahInput.value = item.jumlah;
+        totalHargaInput.value = item.total_harga;
+
+        $('#modalUpdate').modal('show');
+      }
+
+      function updateTotalHarga() {
+        const produkSelect = document.getElementById('produkUpdate');
+        const jumlahInput = document.getElementById('jumlahUpdate');
+        const totalHargaInput = document.getElementById('totalHargaUpdate');
+        const hargaPerUnit = parseFloat(produkSelect.options[produkSelect.selectedIndex].dataset.harga);
+        const jumlah = parseFloat(jumlahInput.value) || 0;
+        const totalHarga = (hargaPerUnit * jumlah).toLocaleString('id-ID');
+        totalHargaInput.value = `Rp ${totalHarga}`;
+      }
+
+      function simpanUpdate() {
+        const index = document.getElementById('transaksiIndex').value;
+        const produkSelect = document.getElementById('produkUpdate');
+        const jumlahInput = document.getElementById('jumlahUpdate');
+        const totalHargaInput = document.getElementById('totalHargaUpdate');
+        const transaksi = JSON.parse(localStorage.getItem('transaksi')) || [];
+
+        const hargaPerUnit = parseFloat(produkSelect.options[produkSelect.selectedIndex].dataset.harga);
+        const jumlah = parseFloat(jumlahInput.value);
+        const totalHarga = (hargaPerUnit * jumlah).toLocaleString('id-ID');
+
+        const transaksiUpdate = {
+          produk: produkSelect.value,
+          jumlah: jumlahInput.value,
+          total_harga: `Rp ${totalHarga}`,
+        };
+
+        transaksi[index] = transaksiUpdate;
+        localStorage.setItem('transaksi', JSON.stringify(transaksi));
+        $('#modalUpdate').modal('hide');
+        tampilkanPesan('success', 'Data transaksi berhasil diperbarui.');
+        location.reload();
+      }
+
+      function hapusTransaksi(index) {
+        if (confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) {
+          const transaksi = JSON.parse(localStorage.getItem('transaksi')) || [];
+          transaksi.splice(index, 1);
+          localStorage.setItem('transaksi', JSON.stringify(transaksi));
+          tampilkanPesan('success', 'Data transaksi berhasil dihapus.');
+          location.reload();
+        }
+      }
+
+      function cetakNota(index) {
+        const transaksi = JSON.parse(localStorage.getItem('transaksi')) || [];
+        const item = transaksi[index];
+        const queryString = new URLSearchParams({
+          produk: item.produk,
+          jumlah: item.jumlah,
+          total_harga: item.total_harga,
+          cetak: 'true',
+        }).toString();
+        window.location.href = `invoice.html?${queryString}`;
+      }
+
+      function tampilkanPesan(jenis, pesan) {
+        const tempatPesan = document.getElementById('tempatPesan');
+        let alertClass = '';
+        switch (jenis) {
+          case 'success':
+            alertClass = 'alert-success';
+            break;
+          case 'error':
+            alertClass = 'alert-danger';
+            break;
+        }
+        tempatPesan.innerHTML = `<div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+      ${pesan}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>`;
+      }
+
+      document.getElementById('jumlahUpdate').addEventListener('input', updateTotalHarga);
+      document.getElementById('produkUpdate').addEventListener('change', updateTotalHarga);
+    </script>
+  </body>
+</html>

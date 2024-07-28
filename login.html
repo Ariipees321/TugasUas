@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - N-Shoes</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+      body {
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .login-container {
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        max-width: 450px;
+        width: 100%;
+      }
+      .login-container h2 {
+        margin-bottom: 20px;
+      }
+      .info-text {
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: #333;
+        background-color: #e9ecef;
+        padding: 15px;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        text-align: center;
+      }
+      .form-control {
+        border-radius: 6;
+      }
+      .btn-info {
+        background-color: #007bff;
+        border-color: #007bff;
+        border-radius: 3;
+        transition: background-color 0.3s ease;
+      }
+      .btn-info:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+      }
+      .text-center {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2 class="text-center">Login</h2>
+      <p class="info-text">
+        <strong>Admin Login:</strong> Username: <strong>admin</strong>, Password: <strong>admin</strong><br />
+        <strong>User Login:</strong> Username: <strong>user</strong>, Password: <strong>user</strong>
+      </p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required />
+        </div>
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select class="form-control" id="role" name="role">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-info btn-block" onclick="login()">Login</button>
+      </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const role = document.getElementById('role').value;
+
+        // Lakukan validasi login (ini hanya contoh, sebaiknya lakukan validasi di sisi server)
+        if (username === 'admin' && password === 'admin' && role === 'admin') {
+          window.location.href = 'penjualan.html';
+        } else if (username === 'user' && password === 'user' && role === 'user') {
+          window.location.href = 'dashboard.html';
+        } else {
+          alert('Username atau password salah!');
+        }
+      }
+    </script>
+  </body>
+</html>
